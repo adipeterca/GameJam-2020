@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     Animator m_Anim;
 
+    int points = 0;
+
     private void Start()
     {
         m_Anim = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
@@ -86,5 +88,20 @@ public class GameManager : MonoBehaviour
     private bool IsAnimationPlaying()
     {
         return m_Anim.GetCurrentAnimatorStateInfo(0).IsName("CameraOverall") || m_Anim.GetCurrentAnimatorStateInfo(0).IsName("CameraFollowPlayer");
+    }
+
+    public int GetCurrentPosition()
+    {
+        return currentPosition;
+    }
+
+    public void AddPoints(int value)
+    {
+        points += value;
+    }
+
+    public int GetCurrentPoints()
+    {
+        return points;
     }
 }

@@ -52,7 +52,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CanMove(Vector3 dir)
     {
-        bool info = !Physics.Raycast(transform.position, dir, rayLength);
+        int layerMask = 1 << 9;
+        bool info = !Physics.Raycast(transform.position, dir, rayLength, layerMask);
         // Debug.DrawRay(transform.position, dir * rayLength, Color.blue, 2);
         return info;  
     }
