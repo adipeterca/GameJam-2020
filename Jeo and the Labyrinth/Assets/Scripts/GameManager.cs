@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Direction
 {
@@ -10,6 +11,7 @@ public enum Direction
 public class GameManager : MonoBehaviour
 {
     public PlayerMovement playerMovement;
+    public GameObject pauseMenu;
     static public bool m_ShowingMap = false;
 
     // The maximum capacity of m_lastPositions
@@ -22,13 +24,35 @@ public class GameManager : MonoBehaviour
 
     int points = 0;
 
+    // Is the pause menu active?
+    bool isActive = false;
+
     private void Start()
     {
         m_Anim = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
+        pauseMenu.SetActive(false);
     }
 
     private void Update()
     {  
+        if (isActive)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                pauseMenu.SetActive(false);
+                isActive = false;
+            }
+            else
+                return;
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                pauseMenu.SetActive(true);
+                isActive = true;
+            }
+        }
         if (Input.GetKeyDown(KeyCode.R) && CanMove())
             RemovePosition();
         else if (Input.GetKeyDown(KeyCode.M))
@@ -69,7 +93,8 @@ public class GameManager : MonoBehaviour
 
     public bool CanMove()
     {
-        return m_Anim.GetCurrentAnimatorStateInfo(0).IsName("CameraStay");
+        return m_Anim.GetCurrentAnimatorStateInfo(0).IsName("CameraStay") &&
+                !isActive;
     }
 
     private void RemovePosition()
@@ -103,5 +128,15 @@ public class GameManager : MonoBehaviour
     public int GetCurrentPoints()
     {
         return points;
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void QuitLevel()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
