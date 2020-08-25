@@ -16,8 +16,8 @@ public class PickUpOptions : MonoBehaviour
 
     private void Start()
     {
-        downPos = transform.position - new Vector3(0, 0.75f, 0);
-        upPos = -downPos;
+        downPos = transform.position - new Vector3(0, 0.35f, 0);
+        upPos = transform.position + new Vector3(0, 0.35f, 0);
     }
 
     private void Update()

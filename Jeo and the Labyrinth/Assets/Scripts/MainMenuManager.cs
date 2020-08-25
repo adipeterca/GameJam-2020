@@ -24,9 +24,10 @@ public class MainMenuData
 
 public class MainMenuManager : MonoBehaviour
 {
+    public bool reset;
     private void Start()
     {
-        if (!File.Exists(Application.persistentDataPath + "/level.save"))
+        if (!File.Exists(Application.persistentDataPath + "/level.save") || reset)
             SaveLevel(-1);
         if (!File.Exists(Application.persistentDataPath + "/settings.save"))
             SaveSettings(2);
@@ -47,16 +48,15 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene(levelString);
     }
 
-    public void LevelButton()
-    {
-
-    }
-
     public void QuitButton()
     {
         Application.Quit();
     }
 
+    public void LoadLevel(string levelName)
+    {
+        SceneManager.LoadScene(levelName);
+    }
 
     public static void SaveLevel(int level)
     {
