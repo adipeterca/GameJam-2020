@@ -70,5 +70,16 @@ public class PlayerMovement : MonoBehaviour
             m_Rigidbody.AddForce(new Vector3(0, 0, -1) * movementSpeed);
     }
 
-    
+    public void MovePlayerWithSpeed(Direction dir, float speed)
+    {
+        if (dir == Direction.forward)
+            m_Rigidbody.AddForce(new Vector3(0, 0, 1) * speed);
+        else if (dir == Direction.left)
+            m_Rigidbody.AddForce(new Vector3(-1, 0, 0) * speed);
+        else if (dir == Direction.right)
+            m_Rigidbody.AddForce(new Vector3(1, 0, 0) * speed);
+        else
+            m_Rigidbody.AddForce(new Vector3(0, 0, -1) * speed);
+    }
+
 }

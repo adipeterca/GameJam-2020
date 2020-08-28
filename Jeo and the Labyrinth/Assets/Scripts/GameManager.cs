@@ -34,7 +34,9 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update()
-    {  
+    {
+        if (FinishLevel.IsGameFinished())
+            return;
         if (isActive)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -94,7 +96,7 @@ public class GameManager : MonoBehaviour
     public bool CanMove()
     {
         return m_Anim.GetCurrentAnimatorStateInfo(0).IsName("CameraStay") &&
-                !isActive;
+                !isActive && !FinishLevel.IsGameFinished();
     }
 
     private void RemovePosition()
@@ -133,6 +135,13 @@ public class GameManager : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void NextLevel()
+    {
+        if (SceneManager.GetActiveScene().name == "Level_5")
+            SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Level_" + (SceneManager.GetActiveScene().name[6] - '0' + 1));
     }
 
     public void QuitLevel()
