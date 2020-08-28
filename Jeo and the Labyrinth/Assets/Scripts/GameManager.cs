@@ -15,10 +15,12 @@ public class GameManager : MonoBehaviour
     static public bool m_ShowingMap = false;
 
     // The maximum capacity of m_lastPositions
-    const int maxSize = 10;
+    // const int maxSize = 10;
 
-    Direction[] m_lastPositions = new Direction[maxSize];
-    int currentPosition = -1;
+    //  Direction[] m_lastPositions = new Direction[maxSize];
+    // int currentPosition = -1;
+
+    int maxRewinds = 3;
 
     Animator m_Anim;
 
@@ -27,9 +29,14 @@ public class GameManager : MonoBehaviour
     // Is the pause menu active?
     bool isActive = false;
 
+    // Position of the last checkpoint
+    static Vector3 lastCheckpoint;
+    static Vector3 startPoint;
+
     private void Start()
     {
         m_Anim = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
+        startPoint = lastCheckpoint = playerMovement.transform.position;
         pauseMenu.SetActive(false);
     }
 
@@ -55,8 +62,8 @@ public class GameManager : MonoBehaviour
                 isActive = true;
             }
         }
-        if (Input.GetKeyDown(KeyCode.R) && CanMove())
-            RemovePosition();
+        if (Input.GetKeyDown(KeyCode.R) && maxRewinds > 0)
+            Rewind();
         else if (Input.GetKeyDown(KeyCode.M))
             ShowMap();
         
@@ -78,7 +85,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AddPosition(Direction dir)
+    /*public void AddPosition(Direction dir)
     {
         if (maxSize == currentPosition + 1)
         {
@@ -88,10 +95,9 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // Debug.Log(currentPosition + " current position");
             m_lastPositions[++currentPosition] = dir;
         }
-    }
+    }*/
 
     public bool CanMove()
     {
@@ -99,27 +105,39 @@ public class GameManager : MonoBehaviour
                 !isActive && !FinishLevel.IsGameFinished();
     }
 
-    private void RemovePosition()
+    /*private void RemovePosition()
     {
         if (currentPosition >= 0)
             playerMovement.MovePlayer(GetOpposite(m_lastPositions[currentPosition--]));
+    }*/
+
+    private void Rewind()
+    {
+        playerMovement.transform.position = lastCheckpoint;
+        if (lastCheckpoint != startPoint)
+            maxRewinds--;
     }
 
-    private Direction GetOpposite(Direction dir)
+    /*private Direction GetOpposite(Direction dir)
     {
         if (dir == Direction.forward) return Direction.backward;
         if (dir == Direction.left) return Direction.right;
         return Direction.left;
-    }
+    }*/
 
     private bool IsAnimationPlaying()
     {
         return m_Anim.GetCurrentAnimatorStateInfo(0).IsName("CameraOverall") || m_Anim.GetCurrentAnimatorStateInfo(0).IsName("CameraFollowPlayer");
     }
 
-    public int GetCurrentPosition()
+    /*public int GetCurrentPosition()
     {
         return currentPosition;
+    }*/
+
+    public int GetRemaningRewinds()
+    {
+        return maxRewinds;
     }
 
     public void AddPoints(int value)
@@ -147,5 +165,10 @@ public class GameManager : MonoBehaviour
     public void QuitLevel()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public static void ChangeCheckpointPosition(Vector3 newPos)
+    {
+        lastCheckpoint = newPos;
     }
 }

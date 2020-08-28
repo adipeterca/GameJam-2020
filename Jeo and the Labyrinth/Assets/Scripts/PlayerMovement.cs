@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     public GameManager gameManager;
 
-    bool m_Forward, m_Left, m_Right;
+    bool m_Forward, m_Left, m_Right, m_Backward;
 
     
     float m_Time;
@@ -28,23 +28,29 @@ public class PlayerMovement : MonoBehaviour
         m_Forward = Input.GetKeyDown(KeyCode.W);
         m_Left = Input.GetKeyDown(KeyCode.A);
         m_Right = Input.GetKeyDown(KeyCode.D);
+        m_Backward = Input.GetKeyDown(KeyCode.S);
 
         if (m_Forward && CanMove(Vector3.forward) && m_Time <= 0f && gameManager.CanMove())
         {
-            gameManager.AddPosition(Direction.forward);
+            // gameManager.AddPosition(Direction.forward);
             MovePlayer(Direction.forward);
             m_Time = movementTime;
         }
         else if (m_Left && CanMove(Vector3.left) && m_Time <= 0f && gameManager.CanMove())
         {
-            gameManager.AddPosition(Direction.left);
+            // gameManager.AddPosition(Direction.left);
             MovePlayer(Direction.left);
             m_Time = movementTime;
         }
         else if (m_Right && CanMove(Vector3.right) && m_Time <= 0f && gameManager.CanMove())
         {
-            gameManager.AddPosition(Direction.right);
+            // gameManager.AddPosition(Direction.right);
             MovePlayer(Direction.right);
+            m_Time = movementTime;
+        }
+        else if (m_Backward && CanMove(Vector3.back) && m_Time <= 0f && gameManager.CanMove())
+        {
+            MovePlayer(Direction.backward);
             m_Time = movementTime;
         }
         m_Time -= Time.deltaTime;

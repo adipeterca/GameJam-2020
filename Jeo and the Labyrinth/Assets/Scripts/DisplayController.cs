@@ -11,7 +11,7 @@ public class DisplayController : MonoBehaviour
 
     private void Update()
     {
-        rewindText.text = "Rewinds: " + (gameManager.GetCurrentPosition() + 1).ToString();
+        rewindText.text = "Rewinds: " + (gameManager.GetRemaningRewinds()).ToString();
         scoreText.text = "Score: " + gameManager.GetCurrentPoints().ToString();
     }
 }
