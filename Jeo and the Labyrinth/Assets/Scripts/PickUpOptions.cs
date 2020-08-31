@@ -22,7 +22,7 @@ public class PickUpOptions : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(0, 45f * Time.deltaTime * rotationMultiplier, 0);
+        transform.Rotate(0, 45f * Time.deltaTime * rotationMultiplier, 0, Space.World);
         if (transform.position.y >= upPos.y)
             goUp = false;
         if (transform.position.y <= downPos.y)

@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 {
     public PlayerMovement playerMovement;
     public GameObject pauseMenu;
+    public FinishLevel m_FinishLevel;
     static public bool m_ShowingMap = false;
 
     // The maximum capacity of m_lastPositions
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (FinishLevel.IsGameFinished())
+        if (m_FinishLevel.IsGameFinished())
             return;
         if (isActive)
         {
@@ -102,7 +103,7 @@ public class GameManager : MonoBehaviour
     public bool CanMove()
     {
         return m_Anim.GetCurrentAnimatorStateInfo(0).IsName("CameraStay") &&
-                !isActive && !FinishLevel.IsGameFinished();
+                !isActive && !m_FinishLevel.IsGameFinished();
     }
 
     /*private void RemovePosition()

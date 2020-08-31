@@ -17,10 +17,10 @@ public class FinishLevel : MonoBehaviour
 
 
     // Is the game finished?
-    private static bool finished = false;
+    private bool finished = false;
     
 
-    public static bool IsGameFinished()
+    public bool IsGameFinished()
     {
         return finished;
     }
@@ -29,7 +29,7 @@ public class FinishLevel : MonoBehaviour
     {
         if (IsGameFinished())
         {
-            playerM.MovePlayerWithSpeed(dir, moveSpeed);
+            // playerM.MovePlayerWithSpeed(dir, moveSpeed);
         }
     }
 
