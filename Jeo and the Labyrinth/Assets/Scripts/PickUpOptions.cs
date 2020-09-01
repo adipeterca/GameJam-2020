@@ -13,11 +13,13 @@ public class PickUpOptions : MonoBehaviour
 
     Vector3 downPos, upPos;
     bool goUp = true;
+    AudioSource sound;
 
     private void Start()
     {
         downPos = transform.position - new Vector3(0, 0.35f, 0);
         upPos = transform.position + new Vector3(0, 0.35f, 0);
+        sound = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -40,7 +42,9 @@ public class PickUpOptions : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             gameManager.AddPoints(points);
-            Destroy(gameObject);
+            sound.Play();
+            transform.position += new Vector3(0, -5f, 0);
+            Destroy(gameObject, 2);
         }
     }
 
