@@ -114,6 +114,8 @@ public class GameManager : MonoBehaviour
 
     private void Rewind()
     {
+        if (lastCheckpoint == startPoint)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         playerMovement.transform.position = lastCheckpoint;
         if (lastCheckpoint != startPoint)
             maxRewinds--;

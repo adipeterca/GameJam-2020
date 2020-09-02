@@ -13,7 +13,6 @@ public class Checkpoint : MonoBehaviour
             Debug.Log("Player has passed though a checkpoint!");
 
             // Animate the checkpoint text
-            checkpointText.SetActive(true);
             checkpointText.GetComponent<Animator>().SetTrigger("Passed");
             // Destroy this GO so the GameManager will only retain its position.
             GameManager.ChangeCheckpointPosition(transform.position);
