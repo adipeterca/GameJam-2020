@@ -161,7 +161,10 @@ public class GameManager : MonoBehaviour
     public void NextLevel()
     {
         if (SceneManager.GetActiveScene().name == "Level_5")
+        {
             SceneManager.LoadScene("MainMenu");
+            return;
+        }
         SceneManager.LoadScene("Level_" + (SceneManager.GetActiveScene().name[6] - '0' + 1));
     }
 

@@ -14,7 +14,7 @@ public class MainMenuData
     public MainMenuData()
     {
         // This just initializes the data.
-        AudioVolume = 2;
+        AudioVolume = 1;
         LevelArray = new bool[6];
         for (int i = 0; i < 6; i++)
             LevelArray[i] = false;
@@ -25,8 +25,13 @@ public class MainMenuData
 public class MainMenuManager : MonoBehaviour
 {
     public bool reset;
+    public bool completeGame;
     private void Start()
     {
+        if (completeGame)
+        {
+            SaveLevel(5);
+        }
         if (!File.Exists(Application.persistentDataPath + "/level.save") || reset)
             SaveLevel(-1);
         if (!File.Exists(Application.persistentDataPath + "/settings.save"))
