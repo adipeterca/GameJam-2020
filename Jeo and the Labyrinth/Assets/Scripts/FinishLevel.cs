@@ -50,7 +50,7 @@ public class FinishLevel : MonoBehaviour
             // Save the progress
             MainMenuData m_Data = MainMenuManager.LoadLevel();
             int index = SceneManager.GetActiveScene().name[6] - '0';
-            Debug.Log("Finished level " + index);
+            // Debug.Log("Finished level " + index);
             m_Data.LevelArray[index] = true;
             MainMenuManager.SaveLevel(index);
         }

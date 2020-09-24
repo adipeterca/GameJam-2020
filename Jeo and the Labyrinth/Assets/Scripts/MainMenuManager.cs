@@ -26,6 +26,12 @@ public class MainMenuManager : MonoBehaviour
 {
     public bool reset;
     public bool completeGame;
+
+    private void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
+
     private void Start()
     {
         if (completeGame)
@@ -36,6 +42,10 @@ public class MainMenuManager : MonoBehaviour
             SaveLevel(-1);
         if (!File.Exists(Application.persistentDataPath + "/settings.save"))
             SaveSettings(2);
+    }
+    private void Update()
+    {
+        Debug.Log(1 / Time.deltaTime);
     }
 
     public void PlayButton()

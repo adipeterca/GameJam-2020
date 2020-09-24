@@ -25,10 +25,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        m_Forward = Input.GetKeyDown(KeyCode.W);
-        m_Left = Input.GetKeyDown(KeyCode.A);
-        m_Right = Input.GetKeyDown(KeyCode.D);
-        m_Backward = Input.GetKeyDown(KeyCode.S);
+        m_Forward = Input.GetKey(KeyCode.W);
+        m_Left = Input.GetKey(KeyCode.A);
+        m_Right = Input.GetKey(KeyCode.D);
+        m_Backward = Input.GetKey(KeyCode.S);
 
         if (m_Forward && CanMove(Vector3.forward) && m_Time <= 0f && gameManager.CanMove())
         {
